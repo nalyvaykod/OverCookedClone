@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class Player : MonoBehaviour {
 
     [SerializeField] private float Speed = 10f;
     [SerializeField] private float rotationSpeed = 10f;
 
+    private bool isWalking;
 
     private void Update()
     {
@@ -40,8 +41,10 @@ public class PlayerMovement : MonoBehaviour {
         transform.position += movementDirection * Speed * Time.deltaTime;
 
         //Character Rotation
+        isWalking = movementDirection != Vector3.zero; 
         transform.forward = Vector3.Slerp(transform.forward,movementDirection, Time.deltaTime * rotationSpeed);
         
+
 
     
     
@@ -49,7 +52,12 @@ public class PlayerMovement : MonoBehaviour {
     
     
     
-    
+    }
+
+    //Animation
+    public bool IsWalking()
+    {
+        return isWalking;
     }
 
 
