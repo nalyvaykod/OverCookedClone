@@ -16,11 +16,40 @@ public class Player : MonoBehaviour {
         Vector2 inputVector = gameInput.GetMovementVectorNorm();
         Vector3 movementDirection = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        float playerSize = .6f;
+        float playerRadius = .6f;
         float playerHeight = 2.2f;
-        float moveDist = Speed * Time.deltaTime;
+        float moveDist = Speed * Time.deltaTime; //Дистанція(Швидкість + час)
 
-        bool canMove = !Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight,playerSize,movementDirection, moveDist);
+        //Collision Detection
+        bool canMove = !Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight,playerRadius,movementDirection, moveDist);
+
+        if (!canMove)
+        {
+            //Cannot move towards MoveDir
+            Vector3 moveDirX = new Vector3(movementDirection.x, 0, 0);
+            canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirX, moveDist);
+
+            if (canMove)
+            {
+                //Can move only on X axis
+                movementDirection = moveDirX;
+            }
+            else
+            {
+                Vector3 moveDirZ = new Vector3(0, 0, movementDirection.z);
+                canMove = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDist);
+
+                if (canMove)
+                {
+                    //Only on Z
+                    movementDirection = moveDirZ;
+                }
+                else
+                {
+                    //Cannot move in any dir
+                }
+            }
+        }
 
         if (canMove)
         {
