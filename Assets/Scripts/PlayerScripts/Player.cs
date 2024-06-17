@@ -6,39 +6,27 @@ public class Player : MonoBehaviour {
 
     [SerializeField] private float Speed = 10f;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private GameInput gameInput;
 
     private bool isWalking;
 
     private void Update()
     {
-        //Input 
-        Vector2 inputVector = new Vector2(0, 0);
 
-        if(Input.GetKey(KeyCode.W))
-        {
-            inputVector.y = +1;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            inputVector.y = -1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            inputVector.x = -1;
-
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            inputVector.x = +1;
-
-        }
-
-        //Move Character
-        inputVector = inputVector.normalized;
-
+        Vector2 inputVector = gameInput.GetMovementVectorNorm();
         Vector3 movementDirection = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        transform.position += movementDirection * Speed * Time.deltaTime;
+        float playerSize = .6f;
+        float playerHeight = 2.2f;
+        float moveDist = Speed * Time.deltaTime;
+
+        bool canMove = !Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight,playerSize,movementDirection, moveDist);
+
+        if (canMove)
+        {
+            transform.position += movementDirection * moveDist;
+        }
+
 
         //Character Rotation
         isWalking = movementDirection != Vector3.zero; 
