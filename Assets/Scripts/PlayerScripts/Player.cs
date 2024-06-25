@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
     [SerializeField] private float Speed = 10f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -11,6 +12,41 @@ public class Player : MonoBehaviour {
 
     private bool isWalking;
     private Vector3 InteractDirection;
+
+    private void Start()
+    {
+        gameInput.OnInteract += GameInput_OnInteract;
+    }
+
+    private void GameInput_OnInteract(object sender, System.EventArgs e)
+    {
+        Vector2 inputVector = gameInput.GetMovementVectorNorm();
+        Vector3 movementDirection = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        if (movementDirection != Vector3.zero)
+        {
+            InteractDirection = movementDirection;
+        }
+
+        //Distance to interact
+        float interactDistance = 2f;
+
+        //Last point of raycast
+        RaycastHit hit;
+
+        //if Raycast fucntion find something,than debug log some text
+        if (Physics.Raycast(transform.position, InteractDirection, out hit, interactDistance, counterLayerMask))
+        {
+            //try to take ClearCounter type of Component
+            if (hit.transform.TryGetComponent(out ClearCounter clearCounter))
+            {
+                //ClearCounter is
+
+                //If true,than call function Interact
+                clearCounter.Interact();
+            }
+        }
+    }
 
     private void Update()
     {
@@ -30,7 +66,7 @@ public class Player : MonoBehaviour {
         Vector2 inputVector = gameInput.GetMovementVectorNorm();
         Vector3 movementDirection = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        if(movementDirection != Vector3.zero)
+        if (movementDirection != Vector3.zero)
         {
             InteractDirection = movementDirection;
         }
@@ -42,17 +78,17 @@ public class Player : MonoBehaviour {
         RaycastHit hit;
 
         //if Raycast fucntion find something,than debug log some text
-        if(Physics.Raycast(transform.position, InteractDirection, out hit, interactDistance, counterLayerMask))
+        if (Physics.Raycast(transform.position, InteractDirection, out hit, interactDistance, counterLayerMask))
         {
             //try to take ClearCounter type of Component
-            if(hit.transform.TryGetComponent(out ClearCounter clearCounter))
+            if (hit.transform.TryGetComponent(out ClearCounter clearCounter))
             {
                 //ClearCounter is
 
                 //If true,than call function Interact
-                clearCounter.Interact();
+                //clearCounter.Interact();
             }
-        } 
+        }
     }
 
     //Counters
