@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     private bool isWalking;
     private Vector3 InteractDirection;
+    private ClearCounter SelectedCount;
 
     private void Start()
     {
@@ -87,6 +88,15 @@ public class Player : MonoBehaviour
 
                 //If true,than call function Interact
                 //clearCounter.Interact();
+                if(clearCounter != SelectedCount)
+                {
+                    SelectedCount = clearCounter;
+                }
+                else
+                {
+                    //2:51:44
+                    SelectedCount = null;
+                }
             }
         }
     }
