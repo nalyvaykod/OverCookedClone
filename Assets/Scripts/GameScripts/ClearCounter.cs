@@ -6,13 +6,57 @@ public class ClearCounter : MonoBehaviour
 {
     [SerializeField] private KitchenObjectSO tomatoKitchenObjectSO;
     [SerializeField] private Transform vegetableTarget;
+    [SerializeField] private ClearCounter secondClearCounter;
+    [SerializeField] private bool testing;
 
-    public void Interact()
+    private KitchenObject kitchenObject;
+
+
+    private void Update()
     {
-        Debug.Log("Interact");
-        Transform kitchenObjectTransform = Instantiate(tomatoKitchenObjectSO.prefab, vegetableTarget);
-        kitchenObjectTransform.localPosition = Vector3.zero;
+        if(testing && Input.GetKeyDown(KeyCode.T))
+        {
+            if(kitchenObject != null)
+            {
+                kitchenObject.SetClearCounter(secondClearCounter);
+            }
+        }
+    }
 
-        Debug.Log(kitchenObjectTransform.GetComponent<KitchenObject>().GetKitchenObjectSO().objectName);
+    public void Interact(Player player)
+    {
+        if (kitchenObject == null)
+        {
+            Transform kitchenObjectTransform = Instantiate(tomatoKitchenObjectSO.prefab, vegetableTarget);
+            kitchenObjectTransform.GetComponent<KitchenObject>().SetClearCounter(this);
+        } else {
+            //Give object to player
+            kitchenObject.SetClearCounter(player);
+        }
+    }
+
+    public Transform GetKitchenObjectFollowTransform()
+    {
+        return vegetableTarget;
+    }
+
+    public void SetKitchenObject(KitchenObject kitchenObject)
+    {
+        this.kitchenObject = kitchenObject;
+    }
+
+    public KitchenObject GetKitchenObject()
+    {
+        return kitchenObject;
+    }
+
+    public void ClearKitchenObject()
+    {
+        kitchenObject = null;
+    }
+
+    public bool HasKitchenObject()
+    {
+        return kitchenObject != null;
     }
 }
