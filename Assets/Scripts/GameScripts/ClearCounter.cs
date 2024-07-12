@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearCounter : MonoBehaviour
-{
+public class ClearCounter : MonoBehaviour, IKitchenObjectParent {
+
     [SerializeField] private KitchenObjectSO tomatoKitchenObjectSO;
     [SerializeField] private Transform vegetableTarget;
     [SerializeField] private ClearCounter secondClearCounter;
@@ -18,7 +18,7 @@ public class ClearCounter : MonoBehaviour
         {
             if(kitchenObject != null)
             {
-                kitchenObject.SetClearCounter(secondClearCounter);
+                kitchenObject.SetKitchenObjectParent(secondClearCounter);
             }
         }
     }
@@ -28,10 +28,10 @@ public class ClearCounter : MonoBehaviour
         if (kitchenObject == null)
         {
             Transform kitchenObjectTransform = Instantiate(tomatoKitchenObjectSO.prefab, vegetableTarget);
-            kitchenObjectTransform.GetComponent<KitchenObject>().SetClearCounter(this);
+            kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
         } else {
             //Give object to player
-            kitchenObject.SetClearCounter(player);
+            //kitchenObject.SetClearCounter(player);
         }
     }
 
