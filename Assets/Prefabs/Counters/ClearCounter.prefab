@@ -71,7 +71,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tomatoKitchenObjectSO: {fileID: 11400000, guid: 56540b385d619a647a06377faec35257,
     type: 2}
-  vegetableTarget: {fileID: 420436094949788928}
+  conterTopPoint: {fileID: 420436094949788928}
+  secondClearCounter: {fileID: 0}
+  testing: 0
 --- !u!1 &8842320516465207049
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 420436094949788928}
   m_Layer: 0
-  m_Name: VegetablesTarget
+  m_Name: CounterTopPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
