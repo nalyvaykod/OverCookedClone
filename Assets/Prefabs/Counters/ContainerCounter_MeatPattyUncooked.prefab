@@ -66,9 +66,14 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 7058934862507717185, guid: ec009a83406ec264aa1b7ec4919e52b4,
         type: 3}
+      propertyPath: counterTopPoint
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7058934862507717185, guid: ec009a83406ec264aa1b7ec4919e52b4,
+        type: 3}
       propertyPath: kitchenObjectSO
       value: 
-      objectReference: {fileID: 11400000, guid: 182b81438159f6047b01ccac22418067,
+      objectReference: {fileID: 11400000, guid: 9773a17d1492ed14f9af6d570e1b88a3,
         type: 2}
     - target: {fileID: 8279831554755192918, guid: ec009a83406ec264aa1b7ec4919e52b4,
         type: 3}
