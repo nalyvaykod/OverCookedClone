@@ -123,7 +123,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         Vector2 inputVector = gameInput.GetMovementVectorNorm();
         Vector3 movementDirection = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        float playerRadius = .6f;
+        float playerRadius = 0.6f;
         float playerHeight = 2.2f;
         float moveDist = Speed * Time.deltaTime; //Дистанція(Швидкість + час)
 
